@@ -39,7 +39,14 @@ def cli(selector: str, project_dir: Path | None, raw: bool) -> None:
     from merlin.renderer import render_mermaid
     from merlin.selector import ModelNotFoundError, SelectorParseError, apply_selector
 
-    project_path = project_dir if project_dir is not None else Path.cwd()
+    if project_dir is not None:
+        project_path = project_dir
+    else:
+        cwd = Path.cwd()
+        project_path = next(
+            (p for p in [cwd, *cwd.parents] if (p / "dbt_project.yml").exists()),
+            cwd,
+        )
 
     try:
         nodes, edges = parse_manifest(project_path)
