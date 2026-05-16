@@ -1,0 +1,92 @@
+{
+  "metadata": {
+    "dbt_schema_version": "https://schemas.getdbt.com/dbt/manifest/v12/manifest.json",
+    "dbt_version": "1.8.0",
+    "generated_at": "2026-05-16T00:00:00.000000Z",
+    "invocation_id": "test-invocation",
+    "env": {}
+  },
+  "nodes": {
+    "model.jaffle_shop.stg_orders": {
+      "unique_id": "model.jaffle_shop.stg_orders",
+      "name": "stg_orders",
+      "resource_type": "model",
+      "depends_on": {
+        "nodes": ["source.jaffle_shop.raw.orders"]
+      }
+    },
+    "model.jaffle_shop.stg_customers": {
+      "unique_id": "model.jaffle_shop.stg_customers",
+      "name": "stg_customers",
+      "resource_type": "model",
+      "depends_on": {
+        "nodes": ["source.jaffle_shop.raw.customers"]
+      }
+    },
+    "model.jaffle_shop.orders": {
+      "unique_id": "model.jaffle_shop.orders",
+      "name": "orders",
+      "resource_type": "model",
+      "depends_on": {
+        "nodes": [
+          "model.jaffle_shop.stg_orders",
+          "model.jaffle_shop.stg_customers",
+          "seed.jaffle_shop.country_codes"
+        ]
+      }
+    },
+    "model.jaffle_shop.orders_snapshot": {
+      "unique_id": "model.jaffle_shop.orders_snapshot",
+      "name": "orders_snapshot",
+      "resource_type": "snapshot",
+      "depends_on": {
+        "nodes": ["model.jaffle_shop.orders"]
+      }
+    },
+    "seed.jaffle_shop.country_codes": {
+      "unique_id": "seed.jaffle_shop.country_codes",
+      "name": "country_codes",
+      "resource_type": "seed",
+      "depends_on": {
+        "nodes": []
+      }
+    },
+    "test.jaffle_shop.not_null_orders_id": {
+      "unique_id": "test.jaffle_shop.not_null_orders_id",
+      "name": "not_null_orders_id",
+      "resource_type": "test",
+      "depends_on": {
+        "nodes": ["model.jaffle_shop.orders"]
+      }
+    },
+    "analysis.jaffle_shop.revenue_analysis": {
+      "unique_id": "analysis.jaffle_shop.revenue_analysis",
+      "name": "revenue_analysis",
+      "resource_type": "analysis",
+      "depends_on": {
+        "nodes": ["model.jaffle_shop.orders"]
+      }
+    }
+  },
+  "sources": {
+    "source.jaffle_shop.raw.orders": {
+      "unique_id": "source.jaffle_shop.raw.orders",
+      "name": "orders",
+      "resource_type": "source",
+      "source_name": "raw",
+      "depends_on": {
+        "nodes": []
+      }
+    },
+    "source.jaffle_shop.raw.customers": {
+      "unique_id": "source.jaffle_shop.raw.customers",
+      "name": "customers",
+      "resource_type": "source",
+      "source_name": "raw",
+      "depends_on": {
+        "nodes": []
+      }
+    }
+  },
+  "macros": {}
+}
