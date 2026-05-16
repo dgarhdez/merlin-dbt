@@ -1,0 +1,21 @@
+{
+  "name": "merlin-dbt",
+  "version": "0.1.0",
+  "description": "dbt lineage CLI — outputs Mermaid flowchart diagrams from manifest.json",
+  "keywords": ["dbt", "lineage", "mermaid", "dag", "cli"],
+  "license": "MIT",
+  "author": "dgarhdez",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dgarhdez/merlin-dbt"
+  },
+  "bin": {
+    "merlin": "./bin/merlin.js"
+  },
+  "scripts": {
+    "postinstall": "node postinstall.js"
+  },
+  "engines": {
+    "node": ">=14"
+  }
+}

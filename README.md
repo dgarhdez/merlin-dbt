@@ -3,12 +3,26 @@
 dbt lineage CLI — outputs Mermaid flowchart diagrams from `manifest.json`.
 
 ```
-merlin -s +my_model+
+merlin +my_model+
 ```
 
 Pipe the output into a GitHub PR description, embed it in documentation, or let an AI agent include it automatically.
 
 ## Installation
+
+**curl (recommended)**
+
+```bash
+curl -LsSf https://raw.githubusercontent.com/dgarhdez/merlin-dbt/main/install.sh | sh
+```
+
+**npm**
+
+```bash
+npm install -g merlin-dbt
+```
+
+**pip / uv**
 
 ```bash
 pip install merlin-dbt
@@ -20,22 +34,22 @@ uv tool install merlin-dbt
 
 ```bash
 # Exact model only
-merlin -s my_model
+merlin my_model
 
 # Model and all upstream ancestors
-merlin -s +my_model
+merlin +my_model
 
 # Model and all downstream descendants
-merlin -s my_model+
+merlin my_model+
 
 # Full upstream + downstream subgraph
-merlin -s +my_model+
+merlin +my_model+
 
 # Use a specific dbt project directory
-merlin -s +my_model+ --project-dir /path/to/dbt_project
+merlin +my_model+ --project-dir /path/to/dbt_project
 
 # Emit raw Mermaid syntax (no fence, for scripting)
-merlin -s +my_model+ --raw
+merlin +my_model+ --raw
 ```
 
 ### Selector patterns
@@ -83,7 +97,7 @@ Traversal terminates at `source()` nodes. Sources have no upstream ancestors in 
 ```yaml
 - name: Add lineage diagram to PR
   run: |
-    DIAGRAM=$(merlin -s +${{ env.CHANGED_MODEL }}+ --project-dir dbt_project)
+    DIAGRAM=$(merlin +${{ env.CHANGED_MODEL }}+)
     gh pr comment ${{ github.event.pull_request.number }} --body "$DIAGRAM"
 ```
 

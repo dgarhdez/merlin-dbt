@@ -5,12 +5,10 @@ import click
 
 
 @click.command(
-    help="""
-Output a Mermaid flowchart of dbt model lineage to stdout.
-
+    help="Output a Mermaid flowchart of dbt model lineage to stdout.",
+    epilog="""\b
 SELECTOR patterns:
 
-\b
   model       exact match only
   +model      model and all upstream ancestors
   model+      model and all downstream descendants
@@ -18,20 +16,12 @@ SELECTOR patterns:
 
 Exit codes:
 
-\b
   0  Success
   1  User input error (model not found, invalid selector)
   2  Environment error (manifest.json not found or invalid)
-"""
+""",
 )
-@click.option(
-    "-s",
-    "--select",
-    "selector",
-    required=True,
-    metavar="SELECTOR",
-    help="dbt-style selector (e.g. +my_model+)",
-)
+@click.argument("selector")
 @click.option(
     "--project-dir",
     default=None,
