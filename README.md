@@ -8,6 +8,8 @@ merlin +my_model+
 
 Pipe the output into a GitHub PR description, embed it in documentation, or let an AI agent include it automatically.
 
+![merlin demo](assets/demo.gif)
+
 ## Installation
 
 **curl (recommended)**
